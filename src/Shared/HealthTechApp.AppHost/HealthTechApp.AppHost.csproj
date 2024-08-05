@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -13,6 +13,9 @@
 		<PackageReference Include="Aspire.Hosting.AppHost" Version="8.1.0" />
 		<PackageReference Include="Aspire.Hosting.RabbitMQ" Version="8.1.0" />
 		<PackageReference Include="Aspire.Hosting.SqlServer" Version="8.1.0" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Services\Booking\Booking.Api\Booking.Api.csproj" />
 	</ItemGroup>
 
 
