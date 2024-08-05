@@ -17,12 +17,12 @@ public abstract class Entity
         }
     }
 
-    private List<INotification> _domainEvents;
-    public IReadOnlyCollection<INotification> DomainEvents => _domainEvents?.AsReadOnly();
+    private List<INotification> _domainEvents = [];
+    public IReadOnlyCollection<INotification> DomainEvents => _domainEvents?.AsReadOnly()!;
 
     public void AddDomainEvent(INotification eventItem)
     {
-        _domainEvents = _domainEvents ?? new List<INotification>();
+        _domainEvents ??= [];
         _domainEvents.Add(eventItem);
     }
 
@@ -43,7 +43,7 @@ public abstract class Entity
 
     public override bool Equals(object obj)
     {
-        if (obj == null || !(obj is Entity))
+        if (obj == null || obj is not Entity)
             return false;
 
         if (ReferenceEquals(this, obj))
@@ -76,7 +76,7 @@ public abstract class Entity
     public static bool operator ==(Entity left, Entity right)
     {
         if (Equals(left, null))
-            return Equals(right, null) ? true : false;
+            return Equals(right, null);
         else
             return left.Equals(right);
     }

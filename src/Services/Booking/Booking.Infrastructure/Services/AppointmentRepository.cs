@@ -1,14 +1,10 @@
 ﻿namespace Booking.Infrastructure.Services;
 
-public class AppointmentRepository : IAppointmentRepository
+public class AppointmentRepository(BookingContext context) : IAppointmentRepository
 {
-    private readonly BookingContext _context;
+    private readonly BookingContext _context = context ?? throw new ArgumentNullException(nameof(context));
     public IUnitOfWork UnitOfWork => _context;
 
-    public AppointmentRepository(BookingContext context)
-    {
-        _context = context ?? throw new ArgumentNullException(nameof(context));
-    }
     public Appointment Add(Appointment appointment)
     {
         if (appointment.IsTransient())
@@ -26,7 +22,7 @@ public class AppointmentRepository : IAppointmentRepository
         _context.Remove(appointment).State = EntityState.Deleted;
     }
 
-    public async Task<Appointment> GetAsync(int appointmentId)
+    public async Task<Appointment?> GetAsync(int appointmentId)
     {
         var appointment = await _context
                             .Appointments

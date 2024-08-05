@@ -4,9 +4,9 @@ public class Approver
     : Entity, IAggregateRoot
 {
 
-    public string IdentityGuid { get; private set; }
+    public string IdentityGuid { get; private set; } = string.Empty;
 
-    public string Name { get; private set; }
+    public string Name { get; private set; } = string.Empty;
     private Approver()
     {
 

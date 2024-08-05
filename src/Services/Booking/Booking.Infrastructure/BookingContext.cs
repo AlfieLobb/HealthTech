@@ -36,7 +36,7 @@ public class BookingContext : DbContext, IUnitOfWork
 
         // After executing this line all the changes (from the Command Handler and Domain Event Handlers) 
         // performed through the DbContext will be committed
-        var result = await base.SaveChangesAsync(cancellationToken);
+        await base.SaveChangesAsync(cancellationToken);
 
         return true;
     }
@@ -45,7 +45,7 @@ public class BookingContext : DbContext, IUnitOfWork
     {
         if (_currentTransaction != null)
         {
-            return null;
+            return null!;
         }
 
         _currentTransaction = await Database.BeginTransactionAsync();
@@ -55,10 +55,8 @@ public class BookingContext : DbContext, IUnitOfWork
 
     public async Task CommitTransactionAsync(IDbContextTransaction transaction)
     {
-        if (transaction == null)
-        {
-            throw new ArgumentNullException(nameof(transaction));
-        }
+        ArgumentNullException.ThrowIfNull(transaction, nameof(transaction));
+
         if (transaction != _currentTransaction)
         {
             throw new InvalidOperationException($"Transaction {transaction.TransactionId} is not current");
@@ -79,7 +77,7 @@ public class BookingContext : DbContext, IUnitOfWork
             if (_currentTransaction != null)
             {
                 _currentTransaction.Dispose();
-                _currentTransaction = null;
+                _currentTransaction = null!;
             }
         }
     }
@@ -95,7 +93,7 @@ public class BookingContext : DbContext, IUnitOfWork
             if (_currentTransaction != null)
             {
                 _currentTransaction.Dispose();
-                _currentTransaction = null;
+                _currentTransaction = null!;
             }
         }
     }

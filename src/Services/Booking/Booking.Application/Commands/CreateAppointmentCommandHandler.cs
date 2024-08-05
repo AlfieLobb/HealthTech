@@ -1,7 +1,6 @@
 ﻿namespace Booking.Application.Commands;
 public class CreateAppointmentCommandHandler(
     IAppointmentRepository appointmentRepository,
-    IMediator mediator,
     ILogger<CreateAppointmentCommandHandler> logger,
     IPatientRepository patientRepository,
     IPublishEndpoint publishEndpoint)
@@ -17,6 +16,11 @@ public class CreateAppointmentCommandHandler(
         {
             patient = new Patient(request.Email, request.Name, request.ContactNumber);
         }
+        if(patient is null)
+        {
+            return false;
+        }
+
         if (patientExsited)
         {
             // Update the contact details if the patient exists in case they have been changed
@@ -37,7 +41,7 @@ public class CreateAppointmentCommandHandler(
         await appointmentRepository.UnitOfWork
             .SaveEntitiesAsync(cancellationToken);
 
-        await publishEndpoint.Publish(new BookingCreatedIntegrationEvent());
+        await publishEndpoint.Publish(new BookingCreatedIntegrationEvent(), cancellationToken);
 
         return true;
 

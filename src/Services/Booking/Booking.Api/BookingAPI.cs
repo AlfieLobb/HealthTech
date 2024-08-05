@@ -32,7 +32,6 @@ public static class BookingAPI
 
     public static async Task<Ok<IEnumerable<AppointmentSummary>>> GetAppointments([AsParameters] BookingServices services)
     {
-        var userId = services.IdentityService.GetUserIdentity();
         var results = await services.Queries.GetAppointments();
         return TypedResults.Ok(results);
     }

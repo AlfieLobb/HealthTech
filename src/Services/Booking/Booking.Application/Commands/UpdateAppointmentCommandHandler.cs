@@ -3,7 +3,6 @@ namespace Booking.Application.Commands;
 
 public class UpdateAppointmentCommandHandler(
     IAppointmentRepository appointmentRepository,
-    IMediator mediator,
     ILogger<UpdateAppointmentCommandHandler> logger,
     IPatientRepository patientRepository,
     IPublishEndpoint publishEndpoint)
@@ -18,6 +17,10 @@ public class UpdateAppointmentCommandHandler(
         if (!patientExsited)
         {
             patient = new Patient(request.Email, request.Name, request.ContactNumber);
+        }
+        if (patient is null)
+        {
+            return false;
         }
 
         patient.SetEmail(request.Email);
@@ -48,7 +51,7 @@ public class UpdateAppointmentCommandHandler(
             .SaveEntitiesAsync(cancellationToken);
 
 
-        await publishEndpoint.Publish(new BookingUpdatedIntegrationEvent());
+        await publishEndpoint.Publish(new BookingUpdatedIntegrationEvent(), cancellationToken);
         return true;
 
     }

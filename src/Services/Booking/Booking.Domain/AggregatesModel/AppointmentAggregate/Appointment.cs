@@ -10,8 +10,8 @@ public class Appointment
     private int? _approverId;
     public int? GetApproverId => _approverId;
 
-    private string _issue;    
-    private DateTime _appointmentDate;
+    private string _issue = string.Empty;    
+    private DateTime _appointmentDate = DateTime.UtcNow;
     private DateTime? _approvalDate;
 
     protected Appointment()

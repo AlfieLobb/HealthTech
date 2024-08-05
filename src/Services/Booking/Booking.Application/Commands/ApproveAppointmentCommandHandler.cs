@@ -4,7 +4,6 @@ public class ApproveAppointmentCommandHandler(
     IAppointmentRepository appointmentRepository,
     IApproverRepository approverRepository,
     IIdentityService identityService,
-    IMediator mediator,
     ILogger<ApproveAppointmentCommandHandler> logger,
     IPublishEndpoint publishEndpoint)
     : IRequestHandler<ApproveAppointmentCommand, bool>
@@ -22,9 +21,19 @@ public class ApproveAppointmentCommandHandler(
             approver = new Approver(userIdentity, "admin");
             logger.LogInformation("Creating Approver - Approver: {@Approver}", approver);
         }
-        var patientUpdate = approverExisted
-            ? approverRepository.Update(approver)
-            : approverRepository.Add(approver);
+        if (approver is null)
+        {
+            return false;
+        }
+
+        if (approverExisted)
+        {
+            approverRepository.Update(approver);
+        }
+        else
+        {
+            approverRepository.Add(approver);
+        }
 
         await approverRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
@@ -45,7 +54,7 @@ public class ApproveAppointmentCommandHandler(
         await appointmentRepository.UnitOfWork
             .SaveEntitiesAsync(cancellationToken);
 
-        await publishEndpoint.Publish(new BookingUpdatedIntegrationEvent());
+        await publishEndpoint.Publish(new BookingUpdatedIntegrationEvent(), cancellationToken);
         return true;
 
     }

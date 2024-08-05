@@ -2,7 +2,7 @@
 using Booking.Application.Queries.ViewModels;
 
 namespace Booking.Infrastructure.Services;
-public class BookinQueries(string connectionString) : IBookingQueries
+public class BookingQueries(string connectionString) : IBookingQueries
 {
     public async Task<Application.Queries.ViewModels.Appointment?> GetAppointment(int id)
     {

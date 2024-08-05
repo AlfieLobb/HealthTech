@@ -52,7 +52,7 @@ public static partial class Extensions
         builder.Services.AddSingleton<IValidator<DeleteAppointmentCommand>, DeleteAppointmentCommandValidator>();
         builder.Services.AddSingleton<IValidator<UpdateAppointmentCommand>, UpdateAppointmentDetailsCommandValidator>();
 
-        builder.Services.AddScoped<IBookingQueries>(sp => new BookinQueries(builder.Configuration.GetConnectionString("BookingDB")));
+        builder.Services.AddScoped<IBookingQueries>(sp => new BookingQueries(builder.Configuration.GetConnectionString("BookingDB")));
         builder.Services.AddScoped<IApproverRepository, ApproverRepository>();
         builder.Services.AddScoped<IPatientRepository, PatientRepository>();
         builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();

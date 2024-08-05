@@ -1,5 +1,6 @@
 ﻿@page "/user/login"
 @inject NavigationManager Nav
+@inject ILogger<Login> logger
 @attribute [Authorize]
 @code {
     [SupplyParameterFromQuery]
@@ -16,7 +17,7 @@
         } catch (NavigationException ne)
         {
             //TODO: Figure out why this throws, it doesn't stop the redirect back and the message just says "Navigation Exception"
-            ;   
+            logger.LogDebug(ne, "redirect failed");
         }
     }
     public static string Url(NavigationManager nav)

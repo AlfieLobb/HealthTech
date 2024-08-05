@@ -4,10 +4,10 @@ public class Patient
     : Entity, IAggregateRoot
 {
 
-    public string Email { get; private set; }
+    public string Email { get; private set; } = string.Empty;
 
-    public string Name { get; private set; }
-    public string ContactNumber { get; private set; }
+    public string Name { get; private set; } = string.Empty;
+    public string ContactNumber { get; private set; } = string.Empty;
     private Patient()
     {
 
