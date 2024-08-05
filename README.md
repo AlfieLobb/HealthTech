@@ -27,6 +27,12 @@ ii .\src\*sln
 	1. Identity.Api - https://localhost:5243/
 	1. HealthTechApp - https://localhost:7057/
 1. To access the SQLServer databases or RabbitMq you will need to inspect the environment variables for the passwords on each run within the Aspire dashboard, alternatively you can set User-Secrets within the AppHost project and the credentials will persist through each run
+```
+{
+  "Parameters:sql-password": <longandsecurepassword>",
+  "Parameters:rabbitmq-password": <longandsecurepassword>"
+}
+```
 1. When viewing the HealthTechApp you are presented with a public form for creating Appointments
 1. when viewing the HealthTechApp a login button is located at the top-right (credentials provided on the login page) once logged in you will be able to access the Admin area via the NavBar
 
