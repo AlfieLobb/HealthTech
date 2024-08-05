@@ -17,7 +17,8 @@ var identityApi = builder.AddProject<Projects.Identity_Api>("identity-api", laun
 var identityEndpoint = identityApi.GetEndpoint(launchProfileName);
 
 
-var bookingApi = builder.AddProject<Projects.Booking_Api>("booking-api");
+var bookingApi = builder.AddProject<Projects.Booking_Api>("booking-api")
+    .WithEnvironment("Identity__Url", identityEndpoint);
 
 var webApp = builder.AddProject<Projects.HealthTechApp_Web>("healthtechapp-web")
     .WithEnvironment("IdentityUrl", identityEndpoint);
@@ -25,7 +26,9 @@ var webApp = builder.AddProject<Projects.HealthTechApp_Web>("healthtechapp-web")
 webApp.WithEnvironment("CallBackUrl", webApp.GetEndpoint(launchProfileName));
 
 // Identity has a reference to all of the apps for callback urls, this is a cyclic reference
-identityApi.WithEnvironment("WebAppClient", webApp.GetEndpoint(launchProfileName));
+identityApi.WithEnvironment("WebAppClient", webApp.GetEndpoint(launchProfileName))
+    .WithEnvironment("BookingApiClient", bookingApi.GetEndpoint(launchProfileName));
+
 
 
 
