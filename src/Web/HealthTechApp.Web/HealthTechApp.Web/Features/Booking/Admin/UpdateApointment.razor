@@ -1,0 +1,30 @@
+﻿@page "/admin/{Id:int}"
+@using HealthTechApp.Web.Services.HttpClients
+@using HealthTechApp.Web.Services.Models.Booking
+@inject IBookingHttpService bookingHttpService
+@inject NavigationManager navigationManager
+
+<h3>Update Apointment</h3>
+
+@if (appointment is not null)
+{
+    <AppointmentForm Data="appointment" OnValidSubmit="HandleAppointmentSubmitAsync" />
+}
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+    private Appointment? appointment;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        appointment = await bookingHttpService.GetAppointmentAsync(Id);
+        await base.OnParametersSetAsync();
+    }
+
+    public async Task HandleAppointmentSubmitAsync(Appointment data)
+    {
+        await bookingHttpService.UpdateCollectionAsync(new UpdateAppointmentRequest(Id, data.AppointmentDate, data.Issue, data.Email, data.Name, data.ContactNumber));
+        navigationManager.NavigateTo("/admin");
+    }
+}

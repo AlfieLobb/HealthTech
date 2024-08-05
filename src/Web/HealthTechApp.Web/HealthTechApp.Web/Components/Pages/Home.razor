@@ -1,7 +1,35 @@
 ﻿@page "/"
+@using HealthTechApp.Web.Services.HttpClients
+@using HealthTechApp.Web.Services.Models.Booking
+@using Microsoft.AspNetCore.Components.Authorization
+
+@inject IBookingHttpService bookingHttpService
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
 
-Welcome to your new app.
+<AuthorizeView>
+    <Authorized>
+        <div>
+            <strong class="text-secondary mx-1">Hello, @context.User.Identity.Name!</strong>
+        </div>
+    </Authorized>
+</AuthorizeView>
+
+@if (appointment is not null)
+{
+    <HealthTechApp.Web.Features.Booking.AppointmentForm Data="appointment" OnValidSubmit="HandleAppointmentSubmitAsync" />
+}
+
+@code {
+    private Appointment appointment;
+    protected override async Task OnInitializedAsync()
+    {
+        appointment = new();
+    }
+
+    public async Task HandleAppointmentSubmitAsync(Appointment data)
+    {
+        await bookingHttpService.CreateAppointmentAsync(new CreateAppointmentRequest(data.AppointmentDate, data.Issue, data.Email, data.Name, data.ContactNumber));
+    }
+}

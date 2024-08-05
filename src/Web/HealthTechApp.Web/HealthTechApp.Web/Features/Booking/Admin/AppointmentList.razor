@@ -1,0 +1,73 @@
+﻿@page "/admin"
+@using HealthTechApp.Web.Services.Models.Booking
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.Web
+@attribute [Authorize]
+@inject IBookingHttpService bookingHttpService
+
+<h3>Appointments</h3>
+
+@rendermode @(new InteractiveServerRenderMode(prerender:false))
+@attribute [StreamRendering]
+
+@* //TODO: This isn't great as it forces a page reload to update the table *@
+<HealthTechApp.Web.Features.Booking.Admin.Components.BookingsRefreshOnChange /> 
+
+<HealthTechApp.Web.Features.Booking.Admin.Components.CreateAppointmentButton />
+
+@if (data == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>AppointmentDate</th>
+                <th>Email</th>
+                <th>Name</th>
+                <th>Contact Number</th>
+                <th>Issue</th>
+                <th>Approved</th>
+                <th>ApproverName</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var appointmentSummary in data.OrderBy(x => x.AppointmentDate))
+            {
+                <tr class="@(appointmentSummary.Approved ? "approved" : "")">
+                    <td>@appointmentSummary.Id</td>
+                    <td>@appointmentSummary.AppointmentDate.ToLongDateString()</td>
+                    <td>@appointmentSummary.Email</td>
+                    <td>@appointmentSummary.Name</td>
+                    <td>@appointmentSummary.ContactNumber</td>
+                    <td>@appointmentSummary.Issue</td>
+                    <td>@appointmentSummary.Approved</td>
+                    <td>@appointmentSummary.ApproverName</td>
+                    <td class="action-alignment">
+                        @if (appointmentSummary.Approved == false)
+                        {
+                            <HealthTechApp.Web.Features.Booking.Admin.Components.ApproveApointmentButton Id="appointmentSummary.Id" />
+                        }
+                        <HealthTechApp.Web.Features.Booking.Admin.Components.UpdateApointmentButton Id="appointmentSummary.Id" />
+                        <HealthTechApp.Web.Features.Booking.Admin.Components.DeleteApointmentButton Id="appointmentSummary.Id" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    public AppointmentSummary[] data;
+    protected override async Task OnInitializedAsync()
+    {
+        data = (await bookingHttpService.GetAppointmentsAsync()).ToArray();
+
+        await base.OnInitializedAsync();
+    }
+}

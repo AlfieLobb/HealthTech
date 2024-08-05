@@ -1,0 +1,11 @@
+﻿@inject NavigationManager nav
+
+<button class="btn btn-success" @onclick="@NavigateToCreate">Create<span class="oi oi-plus" aria-hidden="true" /></button>
+
+@code {
+
+    private async Task NavigateToCreate()
+    {
+        nav.NavigateTo("/");
+    }
+}

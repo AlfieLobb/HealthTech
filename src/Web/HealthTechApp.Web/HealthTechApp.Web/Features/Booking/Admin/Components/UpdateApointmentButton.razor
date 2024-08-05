@@ -1,0 +1,13 @@
+﻿@inject NavigationManager nav
+
+<button class="btn btn-outline-dark" @onclick="@NavigateToUpdate"><span class="oi oi-pencil" aria-hidden="true" /></button>
+
+@code {
+
+    [Parameter, EditorRequired]
+    public int Id { get; set; }
+    private async Task NavigateToUpdate()
+    {
+        nav.NavigateTo($"/admin/{Id}");
+    }
+}

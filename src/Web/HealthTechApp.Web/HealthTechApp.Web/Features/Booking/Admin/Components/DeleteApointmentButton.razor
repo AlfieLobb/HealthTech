@@ -1,0 +1,16 @@
+﻿@inject NavigationManager nav
+@inject IBookingHttpService bookingService
+
+
+<button class="btn btn-outline-dark" @onclick="@DeleteAppointmentAsync"><span class="oi oi-trash" aria-hidden="true" /></button>
+
+@code {
+
+    [Parameter, EditorRequired]
+    public int Id { get; set; }
+
+    private async Task DeleteAppointmentAsync()
+    {
+        await bookingService.DeleteAppointmentAsync(Id);
+    }
+}

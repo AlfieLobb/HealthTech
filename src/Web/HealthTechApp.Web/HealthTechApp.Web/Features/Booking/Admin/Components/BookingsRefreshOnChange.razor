@@ -1,0 +1,46 @@
+﻿@using HealthTechApp.Web.Services
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+
+@attribute [Authorize]
+@rendermode InteractiveServer
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject BookingNotificationService BookingNotificationService
+@inject NavigationManager Nav
+@implements IDisposable
+@code {
+    private IDisposable? BookingChangedSubscription;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            var userId = await AuthenticationStateProvider.GetUserIdAsync();
+            if (!string.IsNullOrEmpty(userId))
+            {
+                BookingChangedSubscription = BookingNotificationService.SubscribeToBookingNotifications(
+                    userId, () => InvokeAsync(HandleBookingChange));
+            }
+        }
+    }
+
+    private async Task HandleBookingChange()
+    {
+        try
+        {
+            //TODO: Not a great user experience
+            Nav.Refresh(true);
+        }
+        catch (Exception ex)
+        {
+            // If there's an exception, we want to handle it on this circuit,
+            // and not throw it to the upstream caller
+            _ = DispatchExceptionAsync(ex);
+        }
+    }
+
+    public void Dispose()
+    {
+        BookingChangedSubscription?.Dispose();
+    }
+}

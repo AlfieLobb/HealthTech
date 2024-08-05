@@ -1,0 +1,94 @@
+﻿@using HealthTechApp.Web.Services.Models.Booking
+@using Microsoft.AspNetCore.Components.Forms
+
+
+<div class="container">
+    <div class="row">
+        <h2>Appointment Form</h2>
+        <div class="col-md-6 col-12">
+            <EditForm Model="Model" method="post" OnValidSubmit="ValidSubmitAsync" FormName="AppointmentForm">
+                <DataAnnotationsValidator />
+
+                <div class="form">
+                    <div class="form-section">
+                        <div class="form-group">
+                            <h3>Details</h3>
+                        </div>
+                    </div>
+                    <div class="form-group-item">
+                        <label class="col-form-label mt-4" for="appointmentEmail">
+                            Email:
+                        </label>
+                        <InputText @bind-Value="@Model.Email" class="form-control" id=appointmentEmail />
+                    </div>
+                    <div class="form-group-item">
+                        <label class="col-form-label mt-4" for="appointmentName">
+                            Name:
+                        </label>
+                        <InputText @bind-Value="@Model.Name" class="form-control" id=appointmentName />
+                    </div>
+
+                    <div class="form-group-item">
+                        <label class="col-form-label mt-4" for="appointmentContactNumber">
+                            Contact Number:
+                        </label>
+                        <InputText @bind-Value="@Model.ContactNumber" class="form-control" id=appointmentContactNumber />
+                    </div>
+                    <div class="form-group-item">
+                        <label class="col-form-label mt-4" for="appointmentDateTime">
+                            DateTime:
+                        </label>
+                        <InputDate Type="InputDateType.DateTimeLocal" @bind-Value:format="dd/MM/yyyy hh:mm:ss" @bind-Value="@Model.AppointmentDate" class="form-control" id=appointmentDateTime />
+                    </div>
+                    <div class="form-group-item">
+                        <label class="col-form-label mt-4" for="appointmentIssue">
+                            Issue:
+                        </label>
+                        <InputTextArea @bind-Value="@Model.Issue" style="height: 20em !important;" class="form-control issue-text-area" id=appointmentIssue />
+                    </div>
+
+                    <div class="form-section">
+                        @if (ValidSubmission == false)
+                        {
+                            <div class="form-buttons text-end my-4">
+                                <button class="btn btn-success" type="submit">Submit</button>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-group-item">
+                                Request submitted
+                            </div>
+                        }
+
+                    </div>
+                    <ValidationSummary />
+                </div>
+            </EditForm>
+        </div>
+    </div>
+</div>
+@code {
+    [SupplyParameterFromForm]
+    private Appointment? Model { get; set; }
+
+    [Parameter]
+    public Appointment? Data { get; set; }
+
+    [Parameter, EditorRequired]
+    public EventCallback<Appointment> OnValidSubmit { get; set; }
+
+    private bool ValidSubmission = false;
+    protected override Task OnParametersSetAsync()
+    {
+        Model ??= Data;
+        return base.OnParametersSetAsync();
+    }
+
+    private async Task ValidSubmitAsync()
+    {
+        ValidSubmission = true;
+        await OnValidSubmit.InvokeAsync(Model);
+    }
+
+}

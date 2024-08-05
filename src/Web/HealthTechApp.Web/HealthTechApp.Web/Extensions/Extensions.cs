@@ -1,4 +1,5 @@
-﻿using HealthTechApp.Web.Services;
+﻿using HealthTechApp.Web.Consumer;
+using HealthTechApp.Web.Services;
 using HealthTechApp.Web.Services.HttpClients;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -15,7 +16,9 @@ public static class Extensions
 
         // Application services
         builder.Services.AddScoped<LogOutService>();
+        builder.Services.AddSingleton<BookingNotificationService>();
 
+        builder.AddMassTransitAndConsumers();
 
 
         builder.Services.AddHttpClient<IBookingHttpService, BookingHttpService>(o => o.BaseAddress = new("https://booking-api"))
@@ -61,6 +64,46 @@ public static class Extensions
         // Blazor auth services
         services.AddScoped<AuthenticationStateProvider, ServerAuthenticationStateProvider>();
         services.AddCascadingAuthenticationState();
+    }
+
+    private static void AddMassTransitAndConsumers(this IHostApplicationBuilder builder)
+    {
+
+        builder.Services.Configure<MassTransitHostOptions>(options =>
+        {
+            options.WaitUntilStarted = true;
+        });
+        builder.Services.AddMassTransit(busConfigurator =>
+        {
+            busConfigurator.AddConsumer<AppointmentCreatedIntegrationConsumer>();
+            busConfigurator.AddConsumer<AppointmentUpdatedIntegrationConsumer>();
+            busConfigurator.AddConsumer<AppointmentDeletedIntegrationConsumer>();
+            busConfigurator.AddConsumer<AppointmentApprovedIntegrationConsumer>();
+
+            busConfigurator.UsingRabbitMq((context, busFactoryConfigurator) =>
+            {
+                var configService = context.GetRequiredService<IConfiguration>();
+                var connectionString = configService.GetConnectionString("rabbitmq"); // <--- same name as in the orchestration
+                busFactoryConfigurator.Host(connectionString);
+                busFactoryConfigurator.ConfigureEndpoints(context);
+                busFactoryConfigurator.ReceiveEndpoint($"{nameof(AppointmentCreatedIntegrationConsumer)}-WebApi", e =>
+                {
+                    e.ConfigureConsumer<AppointmentCreatedIntegrationConsumer>(context);
+                });
+                busFactoryConfigurator.ReceiveEndpoint($"{nameof(AppointmentUpdatedIntegrationConsumer)}-WebApi", e =>
+                {
+                    e.ConfigureConsumer<AppointmentUpdatedIntegrationConsumer>(context);
+                });
+                busFactoryConfigurator.ReceiveEndpoint($"{nameof(AppointmentDeletedIntegrationConsumer)}-WebApi", e =>
+                {
+                    e.ConfigureConsumer<AppointmentDeletedIntegrationConsumer>(context);
+                });
+                busFactoryConfigurator.ReceiveEndpoint($"{nameof(AppointmentApprovedIntegrationConsumer)}-WebApi", e =>
+                {
+                    e.ConfigureConsumer<AppointmentApprovedIntegrationConsumer>(context);
+                });
+            });
+        });
     }
 
     public static async Task<string?> GetUserIdAsync(this AuthenticationStateProvider authenticationStateProvider)
