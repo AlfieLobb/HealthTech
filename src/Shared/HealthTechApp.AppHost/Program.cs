@@ -13,6 +13,7 @@ var rabbitMq = builder.AddRabbitMQ("rabbitmq");
 
 var sql = builder.AddSqlServer("sql", port: 5434);
 var identityDb = sql.AddDatabase("IdentityDB");
+var bookingDb = sql.AddDatabase("BookingDB");
 
 var identityApi = builder.AddProject<Projects.Identity_Api>("identity-api", launchProfileName)
     .WithExternalHttpEndpoints()
@@ -21,6 +22,7 @@ var identityEndpoint = identityApi.GetEndpoint(launchProfileName);
 
 
 var bookingApi = builder.AddProject<Projects.Booking_Api>("booking-api")
+    .WithReference(bookingDb)
     .WithReference(rabbitMq)
     .WithEnvironment("Identity__Url", identityEndpoint);
 
