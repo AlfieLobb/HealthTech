@@ -9,7 +9,15 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\HealthTechApp.ServiceDefaults\HealthTechApp.ServiceDefaults.csproj" />
     <ProjectReference Include="..\HealthTechApp.Web.Client\HealthTechApp.Web.Client.csproj" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.5" />
+	  <PackageReference Include="MassTransit" Version="8.2.3" />
+	  <PackageReference Include="MassTransit.RabbitMQ" Version="8.2.3" />
+	  <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.5" />
+	  <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.0.1" />
+	  <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="8.0.7" />
+	  <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+	  <PackageReference Include="Microsoft.IdentityModel.Protocols" Version="8.0.1" />
+	  <PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="8.0.1" />
+	  <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.0.1" />
   </ItemGroup>
 
 </Project>
