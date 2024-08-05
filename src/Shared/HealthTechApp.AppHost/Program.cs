@@ -8,6 +8,9 @@ builder.AddForwardedHeaders();
 
 var launchProfileName = "https";
 
+var rabbitMq = builder.AddRabbitMQ("rabbitmq");
+
+
 var sql = builder.AddSqlServer("sql", port: 5434);
 var identityDb = sql.AddDatabase("IdentityDB");
 
@@ -18,9 +21,11 @@ var identityEndpoint = identityApi.GetEndpoint(launchProfileName);
 
 
 var bookingApi = builder.AddProject<Projects.Booking_Api>("booking-api")
+    .WithReference(rabbitMq)
     .WithEnvironment("Identity__Url", identityEndpoint);
 
 var webApp = builder.AddProject<Projects.HealthTechApp_Web>("healthtechapp-web")
+    .WithReference(rabbitMq)
     .WithReference(bookingApi)
     .WithEnvironment("IdentityUrl", identityEndpoint);
 
