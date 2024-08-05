@@ -1,0 +1,43 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+SHOW_PERSON_OUTLINE()
+AddElementTag("identityContainer", $fontColor=$ELEMENT_FONT_COLOR, $bgColor="#000000", $shape=RoundedBoxShape(), $legendText="IdentityServer")
+AddElementTag("restContainer", $fontColor=$ELEMENT_FONT_COLOR, $bgColor="#002060", $shape=EightSidedShape(), $legendText="REST service\neight sided")
+AddElementTag("dddContainer", $fontColor=$ELEMENT_FONT_COLOR, $bgColor="#00b050", $shape=EightSidedShape(), $legendText="DDD service\neight sided")
+AddElementTag("redis", $fontColor=$ELEMENT_FONT_COLOR, $bgColor="#c00000", $legendText="redis cache")
+AddElementTag("mssql", $fontColor=$ELEMENT_FONT_COLOR, $bgColor="#0079d6", $legendText="mssql")
+AddRelTag("async", $textColor=$ARROW_FONT_COLOR, $lineColor=$ARROW_COLOR, $lineStyle=DashedLine())
+AddRelTag("sync/async", $textColor=$ARROW_FONT_COLOR, $lineColor=$ARROW_COLOR, $lineStyle=DottedLine())
+
+title Container diagram for HealthTech App
+
+Person(user, User, "A user of the HealthTech app, with the requirement to create appointments")
+
+Container(spa, "Single-Page App", "net8, Blazor", "Provides all the HealthCare App functionality to user via their browser")
+
+System_Boundary(c1, "IdentityServer") {
+    Container(identity_api, "Identity.Api", "net8, WebApi", "Provides a simple implementation of IdentityServer", $tags="identityContainer")
+    ContainerDb(identity_database, "IdentityDb", "MSSQL Database", "Stores user registration information, hashed auth credentials, access logs, etc.", $tags="mssql")
+}
+
+System_Boundary(c2, "System") {
+    Container(booking_api, "Bookings.Api", "net8, WebApi, DDD", "Provides DDD functionality for creating and updating Bookings of Appointments by patients and their approveral", $tags="dddContainer")
+    ContainerDb(booking_database, "BookingDb", "MSSQL Database", "Stores user generated Appointments, Patients & Approvers", $tags="mssql")
+}
+
+System_Boundary(c4, "MessageQueue") {
+
+    Container(rabbitmq, "RabbitMq", "rabbitmq", "messagebus for inter service communication")
+}
+
+Rel_D(user, spa, "Uses", "HTTPS")
+
+Rel_D(spa, identity_api, "Uses", "async, JSON/HTTPS", $tags="async")
+Rel_D(spa, booking_api, "Uses", "async, JSON/HTTPS", $tags="async")
+
+Rel(identity_api, identity_database,  "Reads from and writes to", "")
+Rel(booking_api, booking_database,  "Reads from and writes to", "")
+
+SHOW_LEGEND()
+@enduml
