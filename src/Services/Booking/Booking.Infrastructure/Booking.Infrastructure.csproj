@@ -26,6 +26,7 @@
 
 	<ItemGroup>
 		<Folder Include="Migrations\" />
+		<Folder Include="Migrations\" />
 		<Folder Include="Setup\csv\" />
 	</ItemGroup>
 
