@@ -16,6 +16,7 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\..\Services\Booking\Booking.Api\Booking.Api.csproj" />
+	  <ProjectReference Include="..\..\Services\Identity\Identity.Api\Identity.Api.csproj" />
 	  <ProjectReference Include="..\..\Web\HealthTechApp.Web\HealthTechApp.Web\HealthTechApp.Web.csproj" />
 	</ItemGroup>
 
