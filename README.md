@@ -22,7 +22,7 @@ C2 Model can be found presented in C2_HealthTechApp.plantuml and viewed in eithe
 ii .\src\*sln
 ```
 4. When in Visual Studio set the HealthTechApp.AppHost as the Start-up project
-1. Once the app has spun up you will be presented with the Aspire dashboard where you can see and access each of the components, use the Https links.
+1. Once the app has spun up you will be presented with the Aspire dashboard where you can see and access each of the components, use the Https links. It can take a few minutes for the SQL container to be fully operational after start-up which will stop you logging in
    1. Booking.Api - https://localhost:7064/swagger/index.html
 	1. Identity.Api - https://localhost:5243/
 	1. HealthTechApp - https://localhost:7057/
