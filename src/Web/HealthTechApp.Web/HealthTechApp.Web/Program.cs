@@ -4,6 +4,7 @@ using HealthTechApp.Web.Components;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
+builder.AddApplicationServices();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
@@ -37,3 +38,4 @@ app.MapRazorComponents<App>()
     .AddAdditionalAssemblies(typeof(HealthTechApp.Web.Client._Imports).Assembly);
 
 app.Run();
+

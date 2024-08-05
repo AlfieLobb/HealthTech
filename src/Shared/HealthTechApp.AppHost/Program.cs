@@ -1,4 +1,5 @@
 using Aspire.Hosting.Lifecycle;
+using Projects;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
@@ -13,11 +14,19 @@ var identityDb = sql.AddDatabase("IdentityDB");
 var identityApi = builder.AddProject<Projects.Identity_Api>("identity-api", launchProfileName)
     .WithExternalHttpEndpoints()
     .WithReference(identityDb);
+var identityEndpoint = identityApi.GetEndpoint(launchProfileName);
 
 
-builder.AddProject<Projects.Booking_Api>("booking-api");
+var bookingApi = builder.AddProject<Projects.Booking_Api>("booking-api");
 
-builder.AddProject<Projects.HealthTechApp_Web>("healthtechapp-web");
+var webApp = builder.AddProject<Projects.HealthTechApp_Web>("healthtechapp-web")
+    .WithEnvironment("IdentityUrl", identityEndpoint);
+
+webApp.WithEnvironment("CallBackUrl", webApp.GetEndpoint(launchProfileName));
+
+// Identity has a reference to all of the apps for callback urls, this is a cyclic reference
+identityApi.WithEnvironment("WebAppClient", webApp.GetEndpoint(launchProfileName));
+
 
 
 builder.Build().Run();

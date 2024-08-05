@@ -1,0 +1,25 @@
+﻿@page "/user/login"
+@using Microsoft.AspNetCore.Authorization
+@inject NavigationManager Nav
+@attribute [Authorize]
+@code {
+    [SupplyParameterFromQuery]
+    public string? ReturnUrl { get; set; }
+    [CascadingParameter]
+    public HttpContext? HttpContext { get; set; }
+    protected override void OnInitialized()
+    {
+        var returnUrl = ReturnUrl ?? "/";
+        var url = new Uri(returnUrl, UriKind.RelativeOrAbsolute);
+        try
+        {
+            Nav.NavigateTo(url.IsAbsoluteUri ? "/" : returnUrl);
+        } catch (NavigationException ne)
+        {
+            //TODO: Figure out why this throws, it doesn't stop the redirect back and the message just says "Navigation Exception"
+            ;   
+        }
+    }
+    public static string Url(NavigationManager nav)
+        => $"user/login?returnUrl={Uri.EscapeDataString(nav.ToBaseRelativePath(nav.Uri))}";
+}

@@ -1,0 +1,25 @@
+﻿﻿@using HealthTechApp.Web.Services
+@using Microsoft.AspNetCore.Components.Authorization
+@inject LogOutService LogOutService
+@inject NavigationManager Nav
+<AuthorizeView>
+    <Authorized>
+        <strong class="text-secondary mx-1">Hello, @context.User.Identity.Name!</strong>
+        <form method="post" action="user/logout" @formname="logout" @onsubmit="LogOutAsync">
+            <AntiforgeryToken />
+            <button class="btn btn-link" type="submit">Log out</button>
+        </form>
+    </Authorized>
+    <NotAuthorized>
+        <a class="text-secondary" aria-label="Sign in" href="@Pages.User.Login.Url(Nav)">Log in</a>
+    </NotAuthorized>
+</AuthorizeView>
+@code {
+    [CascadingParameter]
+    public HttpContext? HttpContext { get; set; }
+    private async Task LogOutAsync()
+    {
+        await LogOutService.LogOutAsync(HttpContext!);
+        StateHasChanged();
+    }
+}
