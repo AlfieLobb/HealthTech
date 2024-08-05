@@ -1,6 +1,4 @@
-﻿using Booking.Domain.Seedwork;
-
-namespace Booking.Domain.AggregatesModel.ApproverAggregate;
+﻿namespace Booking.Domain.AggregatesModel.ApproverAggregate;
 
 public interface IApproverRepository : IRepository<Approver>
 {

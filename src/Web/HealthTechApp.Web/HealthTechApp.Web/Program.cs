@@ -1,6 +1,3 @@
-using HealthTechApp.Web.Client.Pages;
-using HealthTechApp.Web.Components;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();

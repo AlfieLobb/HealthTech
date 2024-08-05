@@ -1,8 +1,4 @@
-﻿using Booking.Application.Extensions;
-using MediatR;
-using Microsoft.Extensions.Logging;
-
-namespace Booking.Application.Behaviours;
+﻿namespace Booking.Application.Behaviours;
 
 public class LoggingBehaviour<TRequest, TResponse>(ILogger<LoggingBehaviour<TRequest, TResponse>> logger) : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>
 {

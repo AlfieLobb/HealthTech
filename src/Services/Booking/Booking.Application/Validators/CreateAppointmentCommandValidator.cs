@@ -1,8 +1,4 @@
-﻿using Booking.Application.Commands;
-using FluentValidation;
-using Microsoft.Extensions.Logging;
-
-namespace Booking.Application.Validators;
+﻿namespace Booking.Application.Validators;
 
 public class CreateAppointmentCommandValidator : AbstractValidator<CreateAppointmentCommand>
 {

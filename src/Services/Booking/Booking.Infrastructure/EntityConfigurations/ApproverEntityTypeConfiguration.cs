@@ -1,8 +1,4 @@
-﻿using Booking.Domain.AggregatesModel.ApproverAggregate;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
-namespace Booking.Infrastructure.EntityConfigurations;
+﻿namespace Booking.Infrastructure.EntityConfigurations;
 
 public class ApproverEntityTypeConfiguration : IEntityTypeConfiguration<Approver>
 {

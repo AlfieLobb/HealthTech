@@ -1,17 +1,15 @@
-﻿using Booking.Application.Queries;
+﻿
 using Booking.Application.Queries.ViewModels;
-using Dapper;
-using Microsoft.Data.SqlClient;
 
 namespace Booking.Infrastructure.Services;
 public class BookinQueries(string connectionString) : IBookingQueries
 {
-    public async Task<Appointment?> GetAppointment(int id)
+    public async Task<Application.Queries.ViewModels.Appointment?> GetAppointment(int id)
     {
         using var connection = new SqlConnection(connectionString);
         connection.Open();
 
-        var result = await connection.QueryFirstAsync<Appointment>(@"select 	a.Id, a.AppointmentDate,a.Issue, p.Email, p.Name, p.ContactNumber
+        var result = await connection.QueryFirstAsync<Application.Queries.ViewModels.Appointment>(@"select 	a.Id, a.AppointmentDate,a.Issue, p.Email, p.Name, p.ContactNumber
 FROM Appointments a
 LEFT JOIN Patients p on a.PatientId = P.Id
 WHERE a.Id = @id", new { id });

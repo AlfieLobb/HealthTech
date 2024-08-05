@@ -1,5 +1,3 @@
-using Booking.Infrastructure;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();

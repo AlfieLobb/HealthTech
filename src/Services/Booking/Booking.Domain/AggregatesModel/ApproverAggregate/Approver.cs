@@ -1,7 +1,4 @@
-﻿using Booking.Domain.AggregatesModel.ApproverAggregate;
-using Booking.Domain.Seedwork;
-
-namespace Booking.Domain.AggregatesModel.ApproverAggregate;
+﻿namespace Booking.Domain.AggregatesModel.ApproverAggregate;
 
 public class Approver
     : Entity, IAggregateRoot

@@ -1,5 +1,4 @@
-﻿using MediatR;
-using System.Runtime.Serialization;
+﻿
 
 namespace Booking.Application.Commands;
 

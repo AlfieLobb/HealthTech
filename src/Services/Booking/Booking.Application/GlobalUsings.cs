@@ -1,0 +1,15 @@
+﻿global using Booking.Application.Commands;
+global using Booking.Application.Extensions;
+global using Booking.Application.Queries.ViewModels;
+global using Booking.Application.Services.Identity;
+global using Booking.Domain.AggregatesModel.AppointmentAggregate;
+global using Booking.Domain.AggregatesModel.ApproverAggregate;
+global using Booking.Domain.AggregatesModel.PatientAggregate;
+global using Booking.Domain.Exceptions;
+global using Booking.Messages;
+global using FluentValidation;
+global using MassTransit;
+global using MediatR;
+global using Microsoft.AspNetCore.Http;
+global using Microsoft.Extensions.Logging;
+global using System.Runtime.Serialization;

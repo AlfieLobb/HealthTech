@@ -1,14 +1,4 @@
-﻿using HealthTechApp.Web.Consumer;
-using HealthTechApp.Web.Services;
-using HealthTechApp.Web.Services.HttpClients;
-using MassTransit;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Components.Server;
-using Microsoft.IdentityModel.JsonWebTokens;
-
-public static class Extensions
+﻿public static class Extensions
 {
     public static void AddApplicationServices(this IHostApplicationBuilder builder)
     {

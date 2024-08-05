@@ -1,0 +1,15 @@
+﻿global using Booking.Application.Queries;
+global using Booking.Domain.AggregatesModel.AppointmentAggregate;
+global using Booking.Domain.AggregatesModel.ApproverAggregate;
+global using Booking.Domain.AggregatesModel.PatientAggregate;
+global using Booking.Domain.Seedwork;
+global using Booking.Infrastructure.EntityConfigurations;
+global using Booking.Infrastructure.Extensions;
+global using Dapper;
+global using MediatR;
+global using Microsoft.Data.SqlClient;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.EntityFrameworkCore.Metadata.Builders;
+global using Microsoft.EntityFrameworkCore.Storage;
+global using Booking.Application.Extensions;
+global using Microsoft.Extensions.Logging;

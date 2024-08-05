@@ -1,7 +1,4 @@
-﻿using Booking.Domain.Seedwork;
-using MediatR;
-
-namespace Booking.Infrastructure.Extensions;
+﻿namespace Booking.Infrastructure.Extensions;
 public static class MediatorExtension
 {
     public static async Task DispatchDomainEventsAsync(this IMediator mediator, BookingContext ctx)

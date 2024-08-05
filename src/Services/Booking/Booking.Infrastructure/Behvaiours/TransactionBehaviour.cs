@@ -1,9 +1,4 @@
-﻿using Booking.Application.Extensions;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-
-namespace Booking.Infrastructure.Behvaiours;
+﻿namespace Booking.Infrastructure.Behvaiours;
 public class TransactionBehaviour<TRequest, TResponse>(BookingContext dbContext, ILogger<TransactionBehaviour<TRequest, TResponse>> logger) : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>
 {
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)

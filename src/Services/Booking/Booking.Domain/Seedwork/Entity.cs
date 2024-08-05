@@ -1,5 +1,4 @@
-﻿using MediatR;
-
+﻿
 namespace Booking.Domain.Seedwork;
 
 public abstract class Entity

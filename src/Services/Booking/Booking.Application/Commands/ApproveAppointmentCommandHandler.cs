@@ -1,12 +1,4 @@
-﻿using Booking.Application.Services.Identity;
-using Booking.Domain.AggregatesModel.AppointmentAggregate;
-using Booking.Domain.AggregatesModel.ApproverAggregate;
-using Booking.Messages;
-using MassTransit;
-using MediatR;
-using Microsoft.Extensions.Logging;
-
-namespace Booking.Application.Commands;
+﻿namespace Booking.Application.Commands;
 
 public class ApproveAppointmentCommandHandler(
     IAppointmentRepository appointmentRepository,

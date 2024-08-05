@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-
+﻿
 namespace Booking.Domain.Seedwork;
 
 public abstract class Enumeration : IComparable

@@ -1,13 +1,7 @@
-﻿using Booking.Domain.AggregatesModel.AppointmentAggregate;
-using Booking.Domain.AggregatesModel.ApproverAggregate;
-using Booking.Domain.AggregatesModel.PatientAggregate;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
-namespace Booking.Infrastructure.EntityConfigurations;
-public class AppointmentEntityTypeConfiguration : IEntityTypeConfiguration<Appointment>
+﻿namespace Booking.Infrastructure.EntityConfigurations;
+public class AppointmentEntityTypeConfiguration : IEntityTypeConfiguration<Domain.AggregatesModel.AppointmentAggregate.Appointment>
 {
-    public void Configure(EntityTypeBuilder<Appointment> appointmentConfiguration)
+    public void Configure(EntityTypeBuilder<Domain.AggregatesModel.AppointmentAggregate.Appointment> appointmentConfiguration)
     {
         appointmentConfiguration.ToTable("Appointments");
 

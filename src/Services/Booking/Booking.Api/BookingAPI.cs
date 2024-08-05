@@ -1,8 +1,4 @@
-﻿using Booking.Application.Commands;
-using Booking.Application.Queries.ViewModels;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
-
+﻿namespace Booking.Api;
 public static class BookingAPI
 {
     public static RouteGroupBuilder MapBookingsApi(this RouteGroupBuilder group)

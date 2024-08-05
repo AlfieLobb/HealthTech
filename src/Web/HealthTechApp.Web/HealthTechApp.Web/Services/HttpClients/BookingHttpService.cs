@@ -1,6 +1,4 @@
-﻿using HealthTechApp.Web.Services.Models.Booking;
-
-namespace HealthTechApp.Web.Services.HttpClients;
+﻿namespace HealthTechApp.Web.Services.HttpClients;
 
 public class BookingHttpService(HttpClient httpClient, ILogger<BookingHttpService> logger) : IBookingHttpService
 {

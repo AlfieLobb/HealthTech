@@ -1,10 +1,4 @@
-﻿using Booking.Domain.AggregatesModel.AppointmentAggregate;
-using Booking.Domain.AggregatesModel.PatientAggregate;
-using Booking.Messages;
-using MassTransit;
-using MediatR;
-using Microsoft.Extensions.Logging;
-
+﻿
 namespace Booking.Application.Commands;
 
 public class UpdateAppointmentCommandHandler(

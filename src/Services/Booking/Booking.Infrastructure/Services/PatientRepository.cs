@@ -1,8 +1,4 @@
-﻿using Booking.Domain.AggregatesModel.ApproverAggregate;
-using Booking.Domain.AggregatesModel.PatientAggregate;
-using Booking.Domain.Seedwork;
-using Microsoft.EntityFrameworkCore;
-
+﻿
 namespace Booking.Infrastructure.Services;
 
 public class PatientRepository : IPatientRepository

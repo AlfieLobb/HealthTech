@@ -1,4 +1,4 @@
-﻿using Booking.Domain.Seedwork;
+﻿
 
 namespace Booking.Domain.AggregatesModel.AppointmentAggregate;
 public class Appointment

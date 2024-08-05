@@ -1,5 +1,3 @@
-﻿using MediatR;
-
-namespace Booking.Application.Commands;
+﻿namespace Booking.Application.Commands;
 
 public record DeleteAppointmentCommand(int Id) : IRequest<bool>;

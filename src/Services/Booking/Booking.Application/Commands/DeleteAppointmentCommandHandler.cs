@@ -1,10 +1,4 @@
-﻿using Booking.Domain.AggregatesModel.AppointmentAggregate;
-using Booking.Messages;
-using MassTransit;
-using MediatR;
-using Microsoft.Extensions.Logging;
-
-namespace Booking.Application.Commands;
+﻿namespace Booking.Application.Commands;
 
 public class DeleteAppointmentCommandHandler(ILogger<DeleteAppointmentCommandHandler> logger, IAppointmentRepository appointmentRepository, IPublishEndpoint publishEndpoint)
     : IRequestHandler<DeleteAppointmentCommand, bool>

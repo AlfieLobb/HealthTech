@@ -1,9 +1,4 @@
-﻿using Booking.Domain.AggregatesModel.AppointmentAggregate;
-using Booking.Domain.AggregatesModel.ApproverAggregate;
-using Booking.Domain.Seedwork;
-using Microsoft.EntityFrameworkCore;
-
-namespace Booking.Infrastructure.Services;
+﻿namespace Booking.Infrastructure.Services;
 
 public class AppointmentRepository : IAppointmentRepository
 {

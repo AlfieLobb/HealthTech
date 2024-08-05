@@ -1,14 +1,4 @@
-﻿using Booking.Domain.AggregatesModel.AppointmentAggregate;
-using Booking.Domain.AggregatesModel.ApproverAggregate;
-using Booking.Domain.AggregatesModel.PatientAggregate;
-using Booking.Domain.Seedwork;
-using Booking.Infrastructure.EntityConfigurations;
-using Booking.Infrastructure.Extensions;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
-
-namespace Booking.Infrastructure;
+﻿namespace Booking.Infrastructure;
 public class BookingContext : DbContext, IUnitOfWork
 {
     public const string DEFAULT_SCHEMA = "booking";

@@ -1,11 +1,4 @@
-﻿using Booking.Domain.AggregatesModel.AppointmentAggregate;
-using Booking.Domain.AggregatesModel.PatientAggregate;
-using Booking.Messages;
-using MassTransit;
-using MediatR;
-using Microsoft.Extensions.Logging;
-
-namespace Booking.Application.Commands;
+﻿namespace Booking.Application.Commands;
 public class CreateAppointmentCommandHandler(
     IAppointmentRepository appointmentRepository,
     IMediator mediator,
@@ -37,7 +30,7 @@ public class CreateAppointmentCommandHandler(
 
         await patientRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
-        var appointment = new Appointment(patient.Id, request.Issue, request.AppointmentDate);
+        var appointment = new Domain.AggregatesModel.AppointmentAggregate.Appointment(patient.Id, request.Issue, request.AppointmentDate);
 
         appointmentRepository.Add(appointment);
         logger.LogInformation("Creating Appointment - Appointment: {@appointment}", appointment);

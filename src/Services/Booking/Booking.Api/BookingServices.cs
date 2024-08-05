@@ -1,6 +1,4 @@
-﻿using Booking.Application.Queries;
-using Booking.Application.Services.Identity;
-using MediatR;
+﻿namespace Booking.Api;
 
 public class BookingServices(IMediator mediator,
     IBookingQueries queries,

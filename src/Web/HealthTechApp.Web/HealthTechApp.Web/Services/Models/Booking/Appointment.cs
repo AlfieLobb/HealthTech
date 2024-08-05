@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace HealthTechApp.Web.Services.Models.Booking;
+﻿namespace HealthTechApp.Web.Services.Models.Booking;
 
 public class Appointment
 {

@@ -1,7 +1,4 @@
-﻿using HealthTechApp.Web.Services;
-using MassTransit;
-using Booking.Messages;
-namespace HealthTechApp.Web.Consumer;
+﻿namespace HealthTechApp.Web.Consumer;
 
 public class AppointmentDeletedIntegrationConsumer(
     BookingNotificationService bookingNotificationService,

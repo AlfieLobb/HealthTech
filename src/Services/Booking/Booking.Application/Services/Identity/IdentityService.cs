@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-
+﻿
 namespace Booking.Application.Services.Identity;
 public class IdentityService(IHttpContextAccessor contextAccessor) : IIdentityService
 {

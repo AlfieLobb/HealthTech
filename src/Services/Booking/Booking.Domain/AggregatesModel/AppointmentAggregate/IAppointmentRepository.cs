@@ -1,6 +1,4 @@
-﻿using Booking.Domain.Seedwork;
-
-namespace Booking.Domain.AggregatesModel.AppointmentAggregate;
+﻿namespace Booking.Domain.AggregatesModel.AppointmentAggregate;
 
 public interface IAppointmentRepository : IRepository<Appointment>
 {

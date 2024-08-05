@@ -1,6 +1,4 @@
-﻿using Booking.Domain.Seedwork;
-
-namespace Booking.Domain.AggregatesModel.PatientAggregate;
+﻿namespace Booking.Domain.AggregatesModel.PatientAggregate;
 
 public class Patient
     : Entity, IAggregateRoot

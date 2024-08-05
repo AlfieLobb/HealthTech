@@ -1,5 +1,3 @@
-using System.Net;
-
 namespace Booking.FunctionalTests.Tests;
 public class IntegrationTest1
 {
