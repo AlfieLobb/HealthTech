@@ -1,13 +1,23 @@
 ﻿@page "/weather"
+@using HealthTechApp.Web.Services.HttpClients
 @using Microsoft.AspNetCore.Authorization
 @attribute [StreamRendering]
 
 @attribute [Authorize]
+
+@inject IBookingHttpService bookingHttpService
 <PageTitle>Weather</PageTitle>
 
 <h1>Weather</h1>
 
 <p>This component demonstrates showing data.</p>
+
+<div>
+    Calling Authed Booking Endpoint: @AuthedResponse
+</div>
+<div>
+    Calling Anonymous Booking Endpoint: @AnonymousResponse
+</div>
 
 @if (forecasts == null)
 {
@@ -40,6 +50,8 @@ else
 
 @code {
     private WeatherForecast[]? forecasts;
+    string AuthedResponse = "";
+    string AnonymousResponse = "";
 
     protected override async Task OnInitializedAsync()
     {
@@ -54,6 +66,12 @@ else
             TemperatureC = Random.Shared.Next(-20, 55),
             Summary = summaries[Random.Shared.Next(summaries.Length)]
         }).ToArray();
+
+
+
+        AuthedResponse = await bookingHttpService.GetAuthedPing();
+        AnonymousResponse = await bookingHttpService.GetAnonymousPing();
+
     }
 
     private class WeatherForecast

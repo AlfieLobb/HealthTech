@@ -1,4 +1,5 @@
 ﻿using HealthTechApp.Web.Services;
+using HealthTechApp.Web.Services.HttpClients;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -15,6 +16,10 @@ public static class Extensions
         // Application services
         builder.Services.AddScoped<LogOutService>();
 
+
+
+        builder.Services.AddHttpClient<IBookingHttpService, BookingHttpService>(o => o.BaseAddress = new("https://booking-api"))
+            .AddAuthToken();
     }
 
 

@@ -21,6 +21,7 @@ var bookingApi = builder.AddProject<Projects.Booking_Api>("booking-api")
     .WithEnvironment("Identity__Url", identityEndpoint);
 
 var webApp = builder.AddProject<Projects.HealthTechApp_Web>("healthtechapp-web")
+    .WithReference(bookingApi)
     .WithEnvironment("IdentityUrl", identityEndpoint);
 
 webApp.WithEnvironment("CallBackUrl", webApp.GetEndpoint(launchProfileName));
