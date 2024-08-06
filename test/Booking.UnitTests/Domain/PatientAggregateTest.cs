@@ -14,7 +14,7 @@ public class PatientAggregateTest
 
 
     [Test]
-    public void Create_Patient_Failure_Email()
+    public void Create_Patient_Success()
     {
         // Arrange
         var email = "email@email.co.uk";
