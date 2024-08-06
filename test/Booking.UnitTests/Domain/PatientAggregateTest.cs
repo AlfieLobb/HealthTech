@@ -1,5 +1,6 @@
 ﻿
 using Booking.Domain.AggregatesModel.PatientAggregate;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 using NUnit.Framework.Legacy;
 
 namespace Booking.UnitTests.Domain;
@@ -33,17 +34,17 @@ public class PatientAggregateTest
     }
 
 
-    [Test]
-    public void Create_Patient_Failure()
+
+    [TestCase(null, "test name", "0709123456", "Email")]
+    [TestCase("", "test name", "0709123456", "Email")]
+    [TestCase("email@email.co.uk", null, "0709123456", "Name")]
+    [TestCase("email@email.co.uk", "", "0709123456", "Name")]
+    [TestCase("email@email.co.uk", "test name", null, "ContactNumber")]
+    [TestCase("email@email.co.uk", "test name", "", "ContactNumber")]
+    public void Create_Patient_Failure(string? email, string? name, string? contactNumber, string message)
     {
-        // Arrange
-        string email = null;
-        var name = "test name";
-        var contactNumber = "071238949461";
-
-
         // Act
-        ClassicAssert.Throws<ArgumentNullException>(() => new Patient(email, name, contactNumber), "Email");
+        ClassicAssert.Throws<ArgumentNullException>(() => new Patient(email, name, contactNumber), message);
 
 
     }
