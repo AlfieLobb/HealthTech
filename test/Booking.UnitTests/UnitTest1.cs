@@ -1,6 +1,6 @@
 namespace Booking.UnitTests;
 
-public class Tests
+public class BookingApiTest
 {
     [SetUp]
     public void Setup()
