@@ -45,7 +45,7 @@ public class ApproveAppointmentCommandHandler(
             return false;
         }
 
-        appointment.Approve(approver.Id, DateTime.UtcNow);
+        appointment.Approve(approver.Id);
 
         appointmentRepository.Update(appointment);
 
