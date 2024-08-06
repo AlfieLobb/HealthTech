@@ -1,17 +1,13 @@
-﻿
-using Booking.Domain.AggregatesModel.PatientAggregate;
+﻿using Booking.Domain.AggregatesModel.PatientAggregate;
+using Booking.UnitTests.Builders;
 using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 using NUnit.Framework.Legacy;
 
 namespace Booking.UnitTests.Domain;
 
 [TestFixture]
-public class PatientAggregateTest
+public class PatientAggregateTest()
 {
-    public PatientAggregateTest()
-    {
-    }
-
 
     [Test]
     public void Create_Patient_Success()
@@ -45,8 +41,48 @@ public class PatientAggregateTest
     {
         // Act
         ClassicAssert.Throws<ArgumentNullException>(() => new Patient(email, name, contactNumber), message);
-
-
     }
 
+    [Test]
+    public void Update_Patient_Name()
+    {
+        // Arrange
+        var patient = new PatientBuilder().Build();
+        var newName = "New Name";
+
+        // Act
+        patient.SetName(newName);
+
+        // Assert
+        ClassicAssert.AreEqual(newName, patient.Name);
+    }
+
+
+    [Test]
+    public void Update_Patient_Email()
+    {
+        // Arrange
+        var patient = new PatientBuilder().Build();
+        var newEmail = "New Email";
+
+        // Act
+        patient.SetEmail(newEmail);
+
+        // Assert
+        ClassicAssert.AreEqual(newEmail, patient.Email);
+    }
+
+    [Test]
+    public void Update_Patient_ContactNumber()
+    {
+        // Arrange
+        var patient = new PatientBuilder().Build();
+        var contactNumber = "0798894984984";
+
+        // Act
+        patient.SetContactNumber(contactNumber);
+
+        // Assert
+        ClassicAssert.AreEqual(contactNumber, patient.ContactNumber);
+    }
 }
