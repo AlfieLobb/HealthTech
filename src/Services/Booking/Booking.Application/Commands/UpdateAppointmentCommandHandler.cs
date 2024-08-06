@@ -40,10 +40,8 @@ public class UpdateAppointmentCommandHandler(
             return false;
         }
         appointment.SetIssue(request.Issue);
-        appointment.SetApprovalDate(request.AppointmentDate);
-        appointment.SetApprovalDate(null);
-        appointment.SetApprover(null);
-
+        appointment.SetAppointmentDate(request.AppointmentDate);
+        appointment.ClearApproval();
 
         appointmentRepository.Update(appointment);
         logger.LogInformation("Updating Appointment - Appointment: {@appointment}", appointment);

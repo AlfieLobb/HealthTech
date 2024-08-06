@@ -1,12 +1,12 @@
-﻿
-using Booking.Domain.AggregatesModel.ApproverAggregate;
+﻿using Booking.Domain.AggregatesModel.ApproverAggregate;
 using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 using NUnit.Framework.Legacy;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Booking.UnitTests.Domain;
 
 [TestFixture]
-public class ApprovedAggregateTest()
+public class ApproverAggregateTest()
 {
 
     [Test]
@@ -14,7 +14,7 @@ public class ApprovedAggregateTest()
     {
         // Arrange
         var identity = Guid.NewGuid().ToString();
-        var name = "test name";       
+        var name = "test name";
 
 
         // Act
