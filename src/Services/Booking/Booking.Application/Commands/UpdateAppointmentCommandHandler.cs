@@ -11,6 +11,12 @@ public class UpdateAppointmentCommandHandler(
     public async Task<bool> Handle(UpdateAppointmentCommand request, CancellationToken cancellationToken)
     {
 
+        var appointment = await appointmentRepository.GetAsync(request.AppointmentId);
+        if (appointment is null)
+        {
+            return false;
+        }
+
         var patient = await patientRepository.FindAsync(request.Email);
         var patientExsited = patient is not null;
 
@@ -34,11 +40,6 @@ public class UpdateAppointmentCommandHandler(
 
         await patientRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
-        var appointment = await appointmentRepository.GetAsync(request.AppointmentId);
-        if (appointment is null)
-        {
-            return false;
-        }
         appointment.SetIssue(request.Issue);
         appointment.SetAppointmentDate(request.AppointmentDate);
         appointment.ClearApproval();

@@ -7,9 +7,9 @@ public class PatientBuilder()
     public Patient Build()
     {
         // Arrange
-        var email = "email@email.co.uk";
-        var name = "test name";
-        var contactNumber = "071238949461";
+        var email = "builder@email.co.uk";
+        var name = "builder name";
+        var contactNumber = "builder38949461";
 
         return new Patient(email, name, contactNumber);
     }

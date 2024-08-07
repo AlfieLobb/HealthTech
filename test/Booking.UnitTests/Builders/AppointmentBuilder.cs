@@ -10,7 +10,7 @@ public class AppointmentBuilder()
         // Arrange
         // Appointment
         var patientId = 1;
-        var issue = "Some Test Issue";
+        var issue = "Builder Some Test Issue";
         var appointmentDate = DateTime.UtcNow.AddHours(-1);
 
         var appointment = new Appointment(patientId, issue, appointmentDate);
@@ -22,7 +22,7 @@ public class AppointmentBuilder()
         // Arrange
         // Appointment
         var patientId = 1;
-        var issue = "Some Test Issue";
+        var issue = "Builder Some Test Issue";
         var appointmentDate = DateTime.UtcNow.AddHours(-1);
 
         // Approver
