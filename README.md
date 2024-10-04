@@ -50,5 +50,5 @@ ii .\src\*sln
 
 # Initial hand written notes
 included as they are 90% accurate, some minor naming, additional files and folders added during development
-![Notes](6BTechTestNotes.jpg)
+![Notes](TechTestNotes.jpg)
 
